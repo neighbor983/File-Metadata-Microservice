@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File Metadata Microservice</title>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+</head>
+<body>
+    <div class='container'>
+         <h1 class="header">File Metadata Microservice</h1>
+            <blockquote>User Stories:
+                <ol>
+                    <li>
+                        User Story: I can submit a FormData object that includes a file upload.</li>
+                    <li>
+                        User Story: When I submit something, I will receive the file size in bytes within the JSON response
+                    </li>
+                </ol>
+            </blockquote>
+        
+
+    <input type="file" name="input" id="input">
+    <br/>
+    <a id="submit" class="btn btn-primary">Upload</a>
+ 
+    <div id="result"></div>
+ <script type="text/javascript">
+        (function() {
+            
+            
+     
+      
+  var submit = document.getElementById('submit'),
+      fileInput = document.getElementById('input'),
+      resultDisplay = document.getElementById('result');
+ 
+  submit.addEventListener('click', function() {
+    if (fileInput.files.length > 0) { 
+      uploadFile(fileInput.files[0]); 
+    }
+  });
+ 
+  function uploadFile(file) {
+    var http = new XMLHttpRequest(),
+        formData = new FormData(), 
+        url = 'upload';
+        
+ 
+    formData.append('data', file); 
+    http.open('POST', url, true);
+    http.send(formData);
+    http.onload = function() {
+
+      resultDisplay.innerHTML = this.responseText;
+    };
+  }
+}());
+        
+    </script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+</body>
+</html>
